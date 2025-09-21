@@ -6,7 +6,6 @@
 <title>Fusion AI - Black & White Neon AI Assistant</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* Reset and body */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Orbitron', sans-serif;background:#000;color:#fff;overflow-x:hidden;position:relative;}
 body::before{
@@ -18,6 +17,20 @@ body::before{
   z-index:-1;
 }
 @keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+/* Loader */
+#loader{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background:#000;display:flex;justify-content:center;align-items:center;z-index:9999;
+  flex-direction:column;
+}
+.loader-dot{
+  width:20px;height:20px;margin:5px;background:#fff;border-radius:50%;
+  animation:dotPulse 1s infinite alternate;
+}
+.loader-dot:nth-child(2){animation-delay:0.2s;}
+.loader-dot:nth-child(3){animation-delay:0.4s;}
+@keyframes dotPulse{0%{transform:scale(1);}50%{transform:scale(1.6);}100%{transform:scale(1);}}
 
 /* Header */
 header{text-align:center;padding:80px 20px;position:relative;overflow:hidden;}
@@ -64,6 +77,13 @@ footer a{color:#fff;text-decoration:none;}
 </head>
 <body>
 
+<div id="loader">
+  <div class="loader-dot"></div>
+  <div class="loader-dot"></div>
+  <div class="loader-dot"></div>
+  <p style="color:#fff;margin-top:20px;">Loading Fusion AI...</p>
+</div>
+
 <header>
   <img src="https://i.ibb.co/yQ3m6Q1/fusionai-logo.png" alt="Fusion AI Logo">
   <h1>Fusion AI</h1>
@@ -106,7 +126,6 @@ footer a{color:#fff;text-decoration:none;}
   <p>You are now logged in. Your AI assistant is ready below.</p>
   <button class="button pulse" id="logout-btn">Logout</button>
   <div id="ai-frame">
-    <!-- Embed your Fusion AI iframe here -->
     <iframe src="https://fusionai-10018355.chipp.ai/embed?white_label=true"></iframe>
   </div>
 </section>
@@ -137,6 +156,7 @@ const googleSignInBtn = document.getElementById('google-signin');
 const dashboard = document.getElementById('dashboard');
 const userNameSpan = document.getElementById('user-name');
 const logoutBtn = document.getElementById('logout-btn');
+const loader = document.getElementById('loader');
 
 googleSignInBtn.addEventListener('click', () => {
     auth.signInWithPopup(provider)
@@ -148,7 +168,7 @@ googleSignInBtn.addEventListener('click', () => {
         })
         .catch((error) => {
             console.error(error);
-            alert("Sign-in failed! Check console for details.");
+            alert("Sign-in failed! Check console. Make sure your domain is added in Firebase authorized domains and uses HTTPS.");
         });
 });
 
@@ -163,10 +183,10 @@ auth.onAuthStateChanged(user => {
     }
 });
 
-logoutBtn.addEventListener('click', () => {
-    auth.signOut();
+// Hide loader after iframe is ready
+document.querySelector('#dashboard iframe').addEventListener('load', ()=>{
+    loader.style.display='none';
 });
 </script>
-
 </body>
 </html>
