@@ -3,106 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fusion AI - Neon AI Assistant</title>
+<title>Fusion AI - Black & White Neon AI Assistant</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* Reset & body */
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Orbitron', sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden;position:relative;}
-
-/* Animated gradient background */
+body{font-family:'Orbitron', sans-serif;background:#000;color:#fff;overflow-x:hidden;position:relative;}
 body::before{
   content:"";
   position:fixed;top:0;left:0;width:100%;height:100%;
-  background: linear-gradient(270deg,#0ff,#f0f,#ff0,#0ff);
-  background-size:800% 800%;
-  animation:gradientBG 15s ease infinite;
+  background: linear-gradient(45deg, #fff, #000, #fff, #000);
+  background-size:400% 400%;
+  animation:gradientBG 20s linear infinite;
   z-index:-1;
 }
-@keyframes gradientBG{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
+@keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
-/* Header & logo */
-header{text-align:center;padding:100px 20px;position:relative;overflow:hidden;}
-header h1{font-size:3.5rem;color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #ff0;}
-header img{width:120px;margin-bottom:20px;animation:logoSpin 5s linear infinite;}
+header{text-align:center;padding:80px 20px;position:relative;overflow:hidden;}
+header h1{font-size:3rem;color:#fff;text-shadow:0 0 5px #fff,0 0 10px #fff,0 0 20px #fff;}
+header img{width:120px;height:120px;border-radius:50%;margin-bottom:15px;animation:logoSpin 5s linear infinite; border:3px solid #fff;}
 @keyframes logoSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-header p{color:#0ff;opacity:0.8;margin-top:10px;font-size:1.2rem;}
-nav{margin-top:40px;}
-nav a{color:#0ff;text-decoration:none;margin:0 20px;font-weight:700;transition:0.3s;text-shadow:0 0 5px #0ff;}
-nav a:hover{color:#ff0;text-shadow:0 0 10px #ff0,0 0 20px #ff0;}
+header p{color:#fff;opacity:0.8;margin-top:5px;font-size:1.1rem;}
 
-/* Floating icons */
-.floating-icon{
-  position:absolute;font-size:24px;color:#ff0;animation:floatMove linear infinite;
-}
-@keyframes floatMove{
-  0%{transform:translateY(0) translateX(0);}
-  25%{transform:translateY(-20px) translateX(15px);}
-  50%{transform:translateY(20px) translateX(-15px);}
-  75%{transform:translateY(-15px) translateX(10px);}
-  100%{transform:translateY(0) translateX(0);}
-}
+nav{margin-top:30px;}
+nav a{color:#fff;text-decoration:none;margin:0 20px;font-weight:700;transition:0.3s;text-shadow:0 0 5px #fff;}
+nav a:hover{color:#000;background:#fff;padding:5px 15px;border-radius:8px;transition:0.3s;}
 
-/* Sections */
-section{padding:80px 20px;max-width:1200px;margin:0 auto;text-align:center;}
-.info-cards{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:center;}
-.info-card{flex:1 1 300px;background:#111;padding:30px;border-radius:15px;box-shadow:0 8px 20px rgba(0,255,255,0.3);transition:0.3s;}
-.info-card:hover{transform:translateY(-10px);box-shadow:0 12px 30px rgba(0,255,255,0.5);}
-.info-card h3{margin-bottom:15px;color:#0ff;}
-.info-card p{opacity:0.8;}
+.floating-icon{position:absolute;font-size:26px;color:#fff;animation:floatMove 10s ease-in-out infinite alternate;}
+@keyframes floatMove{0%{transform:translateY(0) translateX(0);}50%{transform:translateY(-25px) translateX(25px);}100%{transform:translateY(0) translateX(0);}}
 
-/* Buttons */
-.button{
-  background:#0ff;color:#000;padding:12px 30px;border:none;border-radius:12px;cursor:pointer;font-weight:700;transition:0.3s;text-shadow:0 0 5px #0ff;
-}
-.button:hover{background:#ff0;text-shadow:0 0 10px #ff0;}
-.pulse{
-  animation: pulse 2s infinite;
-}
-@keyframes pulse{
-  0%{box-shadow:0 0 10px #0ff, 0 0 20px #0ff;}
-  50%{box-shadow:0 0 20px #ff0, 0 0 40px #ff0;}
-  100%{box-shadow:0 0 10px #0ff, 0 0 20px #0ff;}
-}
+section{padding:70px 20px;max-width:1200px;margin:0 auto;text-align:center;}
+.info-cards{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:center;}
+.info-card{flex:1 1 300px;background:#111;padding:25px;border-radius:15px;box-shadow:0 0 20px #fff;transition:0.3s;}
+.info-card:hover{transform:translateY(-10px);box-shadow:0 0 30px #fff;}
+.info-card h3{margin-bottom:15px;color:#fff;}
+.info-card p{opacity:0.7;}
 
-/* AI iframe container */
-#ai-container{display:none; margin-top:20px;}
-iframe{width:100%;height:70vh;border:none;border-radius:15px;}
+.button{background:#fff;color:#000;padding:12px 30px;border:none;border-radius:12px;cursor:pointer;font-weight:700;transition:0.3s;text-shadow:0 0 3px #fff;}
+.button:hover{background:#000;color:#fff;text-shadow:0 0 10px #fff;transition:0.3s;}
+.pulse{animation: pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 10px #fff;}50%{box-shadow:0 0 20px #fff;}100%{box-shadow:0 0 10px #fff;}}
 
-/* Footer */
-footer{background:#111;color:#0ff;text-align:center;padding:20px;margin-top:40px;font-size:0.9rem;}
-footer a{color:#ff0;text-decoration:none;}
+#dashboard{display:none; margin-top:20px; text-align:center;}
+#dashboard h2{color:#fff; margin-bottom:15px;text-shadow:0 0 5px #fff;}
+#dashboard p{margin-bottom:20px;opacity:0.8;}
+#dashboard iframe{width:100%;height:60vh;border:none;border-radius:15px; margin-top:15px; background:#111;box-shadow:0 0 15px #fff;}
 
-/* Responsive */
+footer{background:#111;color:#fff;text-align:center;padding:20px;margin-top:40px;font-size:0.9rem;}
+footer a{color:#fff;text-decoration:none;}
 @media(max-width:768px){.info-cards{flex-direction:column;}}
 </style>
 </head>
 <body>
 
-<!-- Header -->
 <header>
+  <!-- AI Logo -->
   <img src="https://i.ibb.co/yQ3m6Q1/fusionai-logo.png" alt="Fusion AI Logo">
   <h1>Fusion AI</h1>
-  <p>Your Neon AI Assistant</p>
+  <p>Your Black & White Neon AI Assistant</p>
   <nav>
     <a href="#about">About AI</a>
-    <a href="#ai-container">Try AI</a>
+    <a href="#dashboard">Dashboard</a>
     <a href="#auth">Sign In / Sign Up</a>
   </nav>
-
-  <!-- Floating Icons -->
-  <div class="floating-icon" style="top:10%; left:15%;">🤖</div>
+  <div class="floating-icon" style="top:15%; left:10%;">🤖</div>
   <div class="floating-icon" style="top:50%; left:80%;">💡</div>
   <div class="floating-icon" style="top:70%; left:40%;">🛸</div>
 </header>
 
-<!-- About Section -->
 <section id="about">
-  <h2 style="color:#0ff;">About Fusion AI</h2>
+  <h2 style="color:#fff;">About Fusion AI</h2>
   <div class="info-cards">
     <div class="info-card">
       <h3>Intelligent & Fast</h3>
@@ -119,27 +88,25 @@ footer a{color:#ff0;text-decoration:none;}
   </div>
 </section>
 
-<!-- Sign-In Section -->
 <section id="auth">
-  <h2 style="color:#0ff;">Sign In / Sign Up</h2>
+  <h2 style="color:#fff;">Sign In / Sign Up</h2>
   <button class="button pulse" id="google-signin">Sign In with Google</button>
 </section>
 
-<!-- AI Section -->
-<section id="ai-container">
-  <h2 style="color:#0ff;">Try Fusion AI</h2>
-  <button class="button pulse" onclick="document.getElementById('ai-frame').scrollIntoView({behavior:'smooth'});">Try AI Now</button>
+<section id="dashboard">
+  <h2>Welcome, <span id="user-name"></span>!</h2>
+  <p>You are now logged in. Your AI assistant will be available here once ready.</p>
+  <button class="button pulse" id="logout-btn">Logout</button>
   <div id="ai-frame">
-    <iframe src="YOUR_CUSTOM_AI_URL_HERE"></iframe>
+    <iframe src="" placeholder="AI will be available here"></iframe>
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
   &copy; 2025 Fusion AI. All rights reserved.
 </footer>
 
-<!-- Firebase Scripts -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script>
@@ -158,28 +125,42 @@ footer a{color:#ff0;text-decoration:none;}
   const provider = new firebase.auth.GoogleAuthProvider();
 
   const googleSignInBtn = document.getElementById('google-signin');
-  const aiContainer = document.getElementById('ai-container');
+  const dashboard = document.getElementById('dashboard');
+  const userNameSpan = document.getElementById('user-name');
+  const logoutBtn = document.getElementById('logout-btn');
 
-  // Hide AI section until login
-  aiContainer.style.display = 'none';
+  dashboard.style.display = 'none';
 
-  // Sign-in with Google
+  // Google Sign-In using redirect (stable)
   googleSignInBtn.addEventListener('click', () => {
-    auth.signInWithPopup(provider)
-      .then(result => {
-        alert("Signed in as " + result.user.displayName);
-        aiContainer.style.display = 'block'; // show AI
-        googleSignInBtn.style.display = 'none'; // hide sign-in button
-      })
-      .catch(err => console.error(err));
+    auth.signInWithRedirect(provider);
   });
 
-  // Check auth state
+  // Handle redirect result
+  auth.getRedirectResult()
+    .then(result => {
+      if(result.user){
+        userNameSpan.textContent = result.user.displayName;
+        dashboard.style.display = 'block';
+        googleSignInBtn.style.display = 'none';
+      }
+    })
+    .catch(err => console.error(err));
+
+  // Auth state observer
   auth.onAuthStateChanged(user => {
     if(user){
-      aiContainer.style.display = 'block';
+      userNameSpan.textContent = user.displayName;
+      dashboard.style.display = 'block';
       googleSignInBtn.style.display = 'none';
     }
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    auth.signOut().then(() => {
+      dashboard.style.display = 'none';
+      googleSignInBtn.style.display = 'inline-block';
+    });
   });
 </script>
 
