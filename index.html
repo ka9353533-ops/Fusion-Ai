@@ -6,6 +6,7 @@
 <title>Fusion AI - Black & White Neon AI Assistant</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <style>
+/* Reset and body */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Orbitron', sans-serif;background:#000;color:#fff;overflow-x:hidden;position:relative;}
 body::before{
@@ -17,32 +18,47 @@ body::before{
   z-index:-1;
 }
 @keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+/* Header */
 header{text-align:center;padding:80px 20px;position:relative;overflow:hidden;}
 header h1{font-size:3rem;color:#fff;text-shadow:0 0 5px #fff,0 0 10px #fff,0 0 20px #fff;}
 header img{width:120px;height:120px;border-radius:50%;margin-bottom:15px;animation:logoSpin 5s linear infinite;border:3px solid #fff;}
 @keyframes logoSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 header p{color:#fff;opacity:0.8;margin-top:5px;font-size:1.1rem;}
+
+/* Navigation */
 nav{margin-top:30px;}
 nav a{color:#fff;text-decoration:none;margin:0 20px;font-weight:700;transition:0.3s;text-shadow:0 0 5px #fff;}
 nav a:hover{color:#000;background:#fff;padding:5px 15px;border-radius:8px;transition:0.3s;}
+
+/* Floating icons */
 .floating-icon{position:absolute;font-size:26px;color:#fff;animation:floatMove 10s ease-in-out infinite alternate;}
 @keyframes floatMove{0%{transform:translateY(0) translateX(0);}50%{transform:translateY(-25px) translateX(25px);}100%{transform:translateY(0) translateX(0);}}
+
+/* Sections */
 section{padding:70px 20px;max-width:1200px;margin:0 auto;text-align:center;}
 .info-cards{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:center;}
 .info-card{flex:1 1 300px;background:#111;padding:25px;border-radius:15px;box-shadow:0 0 20px #fff;transition:0.3s;}
 .info-card:hover{transform:translateY(-10px);box-shadow:0 0 30px #fff;}
 .info-card h3{margin-bottom:15px;color:#fff;}
 .info-card p{opacity:0.7;}
+
+/* Buttons */
 .button{background:#fff;color:#000;padding:12px 30px;border:none;border-radius:12px;cursor:pointer;font-weight:700;transition:0.3s;text-shadow:0 0 3px #fff;}
 .button:hover{background:#000;color:#fff;text-shadow:0 0 10px #fff;transition:0.3s;}
 .pulse{animation: pulse 2s infinite;}
 @keyframes pulse{0%{box-shadow:0 0 10px #fff;}50%{box-shadow:0 0 20px #fff;}100%{box-shadow:0 0 10px #fff;}}
+
+/* Dashboard */
 #dashboard{display:none; margin-top:20px; text-align:center;}
 #dashboard h2{color:#fff; margin-bottom:15px;text-shadow:0 0 5px #fff;}
 #dashboard p{margin-bottom:20px;opacity:0.8;}
 #dashboard iframe{width:100%;height:70vh;border:none;border-radius:15px; margin-top:15px; background:#111;box-shadow:0 0 15px #fff;}
+
+/* Footer */
 footer{background:#111;color:#fff;text-align:center;padding:20px;margin-top:40px;font-size:0.9rem;}
 footer a{color:#fff;text-decoration:none;}
+
 @media(max-width:768px){.info-cards{flex-direction:column;}}
 </style>
 </head>
@@ -90,7 +106,7 @@ footer a{color:#fff;text-decoration:none;}
   <p>You are now logged in. Your AI assistant is ready below.</p>
   <button class="button pulse" id="logout-btn">Logout</button>
   <div id="ai-frame">
-    <!-- Embed your Fusion AI iframe -->
+    <!-- Embed your Fusion AI iframe here -->
     <iframe src="https://fusionai-10018355.chipp.ai/embed?white_label=true"></iframe>
   </div>
 </section>
@@ -99,7 +115,7 @@ footer a{color:#fff;text-decoration:none;}
   &copy; 2025 Fusion AI. All rights reserved.
 </footer>
 
-<!-- Firebase SDK -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script>
@@ -132,7 +148,7 @@ googleSignInBtn.addEventListener('click', () => {
         })
         .catch((error) => {
             console.error(error);
-            alert("Sign-in failed! Check console.");
+            alert("Sign-in failed! Check console for details.");
         });
 });
 
