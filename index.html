@@ -1,192 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fusion AI - Black & White Neon AI Assistant</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Orbitron', sans-serif;background:#000;color:#fff;overflow-x:hidden;position:relative;}
-body::before{
-  content:"";
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background: linear-gradient(45deg, #fff, #000, #fff, #000);
-  background-size:400% 400%;
-  animation:gradientBG 20s linear infinite;
-  z-index:-1;
-}
-@keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fusion AI</title>
 
-/* Loader */
-#loader{
-  position:fixed;top:0;left:0;width:100%;height:100%;
-  background:#000;display:flex;justify-content:center;align-items:center;z-index:9999;
-  flex-direction:column;
-}
-.loader-dot{
-  width:20px;height:20px;margin:5px;background:#fff;border-radius:50%;
-  animation:dotPulse 1s infinite alternate;
-}
-.loader-dot:nth-child(2){animation-delay:0.2s;}
-.loader-dot:nth-child(3){animation-delay:0.4s;}
-@keyframes dotPulse{0%{transform:scale(1);}50%{transform:scale(1.6);}100%{transform:scale(1);}}
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.ico">
 
-/* Header */
-header{text-align:center;padding:80px 20px;position:relative;overflow:hidden;}
-header h1{font-size:3rem;color:#fff;text-shadow:0 0 5px #fff,0 0 10px #fff,0 0 20px #fff;}
-header img{width:120px;height:120px;border-radius:50%;margin-bottom:15px;animation:logoSpin 5s linear infinite;border:3px solid #fff;}
-@keyframes logoSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-header p{color:#fff;opacity:0.8;margin-top:5px;font-size:1.1rem;}
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
-/* Navigation */
-nav{margin-top:30px;}
-nav a{color:#fff;text-decoration:none;margin:0 20px;font-weight:700;transition:0.3s;text-shadow:0 0 5px #fff;}
-nav a:hover{color:#000;background:#fff;padding:5px 15px;border-radius:8px;transition:0.3s;}
+  <!-- Google Ads (replace with your AdSense client ID) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXX"
+     crossorigin="anonymous"></script>
 
-/* Floating icons */
-.floating-icon{position:absolute;font-size:26px;color:#fff;animation:floatMove 10s ease-in-out infinite alternate;}
-@keyframes floatMove{0%{transform:translateY(0) translateX(0);}50%{transform:translateY(-25px) translateX(25px);}100%{transform:translateY(0) translateX(0);}}
+  <style>
+    body {
+      margin: 0;
+      font-family: "Orbitron", sans-serif;
+      background: black;
+      color: white;
+      text-align: center;
+    }
 
-/* Sections */
-section{padding:70px 20px;max-width:1200px;margin:0 auto;text-align:center;}
-.info-cards{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:center;}
-.info-card{flex:1 1 300px;background:#111;padding:25px;border-radius:15px;box-shadow:0 0 20px #fff;transition:0.3s;}
-.info-card:hover{transform:translateY(-10px);box-shadow:0 0 30px #fff;}
-.info-card h3{margin-bottom:15px;color:#fff;}
-.info-card p{opacity:0.7;}
+    header {
+      padding: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #00f7ff;
+      text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+    }
 
-/* Buttons */
-.button{background:#fff;color:#000;padding:12px 30px;border:none;border-radius:12px;cursor:pointer;font-weight:700;transition:0.3s;text-shadow:0 0 3px #fff;}
-.button:hover{background:#000;color:#fff;text-shadow:0 0 10px #fff;transition:0.3s;}
-.pulse{animation: pulse 2s infinite;}
-@keyframes pulse{0%{box-shadow:0 0 10px #fff;}50%{box-shadow:0 0 20px #fff;}100%{box-shadow:0 0 10px #fff;}}
+    #login-btn {
+      background: #00f7ff;
+      color: black;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
 
-/* Dashboard */
-#dashboard{display:none; margin-top:20px; text-align:center;}
-#dashboard h2{color:#fff; margin-bottom:15px;text-shadow:0 0 5px #fff;}
-#dashboard p{margin-bottom:20px;opacity:0.8;}
-#dashboard iframe{width:100%;height:70vh;border:none;border-radius:15px; margin-top:15px; background:#111;box-shadow:0 0 15px #fff;}
+    #login-btn:hover {
+      background: #00cfff;
+      transform: scale(1.05);
+    }
 
-/* Footer */
-footer{background:#111;color:#fff;text-align:center;padding:20px;margin-top:40px;font-size:0.9rem;}
-footer a{color:#fff;text-decoration:none;}
+    #logout-btn {
+      display: none;
+      margin: 10px;
+      background: red;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-@media(max-width:768px){.info-cards{flex-direction:column;}}
-</style>
+    #loader {
+      display: none;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: black;
+    }
+
+    .spinner {
+      border: 6px solid #333;
+      border-top: 6px solid #00f7ff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #ai-container {
+      display: none;
+      width: 100%;
+      height: 90vh;
+      border: none;
+    }
+  </style>
 </head>
 <body>
+  <header>⚡ Fusion AI ⚡</header>
 
-<div id="loader">
-  <div class="loader-dot"></div>
-  <div class="loader-dot"></div>
-  <div class="loader-dot"></div>
-  <p style="color:#fff;margin-top:20px;">Loading Fusion AI...</p>
-</div>
+  <button id="login-btn">Sign in with Google</button>
+  <button id="logout-btn">Logout</button>
 
-<header>
-  <img src="https://i.ibb.co/yQ3m6Q1/fusionai-logo.png" alt="Fusion AI Logo">
-  <h1>Fusion AI</h1>
-  <p>Your Black & White Neon AI Assistant</p>
-  <nav>
-    <a href="#about">About AI</a>
-    <a href="#dashboard">Dashboard</a>
-    <a href="#auth">Sign In / Sign Up</a>
-  </nav>
-  <div class="floating-icon" style="top:15%; left:10%;">🤖</div>
-  <div class="floating-icon" style="top:50%; left:80%;">💡</div>
-  <div class="floating-icon" style="top:70%; left:40%;">🛸</div>
-</header>
+  <!-- Loader -->
+  <div id="loader"><div class="spinner"></div></div>
 
-<section id="about">
-  <h2 style="color:#fff;">About Fusion AI</h2>
-  <div class="info-cards">
-    <div class="info-card">
-      <h3>Intelligent & Fast</h3>
-      <p>Fusion AI can answer questions, solve problems, and generate content instantly.</p>
-    </div>
-    <div class="info-card">
-      <h3>Image & Code Generation</h3>
-      <p>Generate high-quality images, code snippets, or text effortlessly.</p>
-    </div>
-    <div class="info-card">
-      <h3>Exclusive Access</h3>
-      <p>Only registered users can access Fusion AI directly in your browser.</p>
-    </div>
-  </div>
-</section>
+  <!-- AI iframe -->
+  <iframe id="ai-container" src="https://fusionai-10018355.chipp.ai/"></iframe>
 
-<section id="auth">
-  <h2 style="color:#fff;">Sign In / Sign Up</h2>
-  <button class="button pulse" id="google-signin">Sign In with Google</button>
-</section>
+  <script>
+    // Your Firebase Config (replace with YOUR values from Firebase console)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-<section id="dashboard">
-  <h2>Welcome, <span id="user-name"></span>!</h2>
-  <p>You are now logged in. Your AI assistant is ready below.</p>
-  <button class="button pulse" id="logout-btn">Logout</button>
-  <div id="ai-frame">
-    <iframe src="https://fusionai-10018355.chipp.ai/embed?white_label=true"></iframe>
-  </div>
-</section>
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-<footer>
-  &copy; 2025 Fusion AI. All rights reserved.
-</footer>
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
+    const loader = document.getElementById("loader");
+    const iframe = document.getElementById("ai-container");
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script>
-const firebaseConfig = {
-    apiKey: "AIzaSyArZzZPIzC8yQ6NTq9c9ZR3PGpIH5v9ZP0",
-    authDomain: "fusionai-dea4d.firebaseapp.com",
-    projectId: "fusionai-dea4d",
-    storageBucket: "fusionai-dea4d.appspot.com",
-    messagingSenderId: "118213693966",
-    appId: "1:118213693966:web:584a5d6b59b51808ffa25f",
-    measurementId: "G-VNHSHQM183"
-};
+    loginBtn.addEventListener("click", () => {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).catch(err => {
+        alert("Sign-in failed: " + err.message);
+      });
+    });
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const provider = new firebase.auth.GoogleAuthProvider();
+    logoutBtn.addEventListener("click", () => {
+      auth.signOut();
+    });
 
-const googleSignInBtn = document.getElementById('google-signin');
-const dashboard = document.getElementById('dashboard');
-const userNameSpan = document.getElementById('user-name');
-const logoutBtn = document.getElementById('logout-btn');
-const loader = document.getElementById('loader');
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-block";
+        loader.style.display = "flex";
 
-googleSignInBtn.addEventListener('click', () => {
-    auth.signInWithPopup(provider)
-        .then((result) => {
-            const user = result.user;
-            userNameSpan.textContent = user.displayName;
-            dashboard.style.display = 'block';
-            googleSignInBtn.style.display = 'none';
-        })
-        .catch((error) => {
-            console.error(error);
-            alert("Sign-in failed! Check console. Make sure your domain is added in Firebase authorized domains and uses HTTPS.");
-        });
-});
-
-auth.onAuthStateChanged(user => {
-    if(user){
-        userNameSpan.textContent = user.displayName;
-        dashboard.style.display = 'block';
-        googleSignInBtn.style.display = 'none';
-    } else {
-        dashboard.style.display = 'none';
-        googleSignInBtn.style.display = 'inline-block';
-    }
-});
-
-// Hide loader after iframe is ready
-document.querySelector('#dashboard iframe').addEventListener('load', ()=>{
-    loader.style.display='none';
-});
-</script>
+        // Show AI iframe after small delay (simulate loading)
+        setTimeout(() => {
+          loader.style.display = "none";
+          iframe.style.display = "block";
+        }, 2000);
+      } else {
+        loginBtn.style.display = "inline-block";
+        logoutBtn.style.display = "none";
+        loader.style.display = "none";
+        iframe.style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
