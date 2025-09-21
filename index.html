@@ -1,86 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fusion AI - Your Personal AI Assistant</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: 'Roboto', sans-serif; background:#f5f5f5; color:#333; }
-    header { background:#1a1a1a; color:#fff; padding:60px 20px; text-align:center; }
-    header h1 { font-size:2.8rem; margin-bottom:10px; }
-    header p { font-size:1.2rem; opacity:0.8; }
-    nav { display:flex; justify-content:center; gap:20px; margin-top:20px; }
-    nav a { color:#fff; text-decoration:none; font-weight:500; transition:0.3s; }
-    nav a:hover { color:#ffcc00; }
-    section { padding:60px 20px; max-width:1200px; margin:0 auto; }
-    .info { display:flex; flex-wrap:wrap; gap:40px; justify-content:center; align-items:center; }
-    .info div { flex:1 1 300px; background:#fff; padding:30px; border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.1); text-align:center; transition:0.3s; }
-    .info div:hover { transform:translateY(-5px); box-shadow:0 12px 25px rgba(0,0,0,0.15); }
-    .info h3 { margin-bottom:15px; color:#1a1a1a; }
-    iframe { width:100%; height:80vh; border:none; border-radius:12px; }
-    footer { background:#1a1a1a; color:#fff; text-align:center; padding:20px; margin-top:40px; font-size:0.9rem; }
-    .ad-container { text-align:center; margin:30px 0; }
-    @media (max-width:768px){ .info { flex-direction:column; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fusion AI - Neon AI Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Reset & body */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Orbitron', sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden;position:relative;}
+
+/* Animated gradient background */
+body::before{
+  content:"";
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background: linear-gradient(270deg,#0ff,#f0f,#ff0,#0ff);
+  background-size:800% 800%;
+  animation:gradientBG 15s ease infinite;
+  z-index:-1;
+}
+@keyframes gradientBG{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Header & logo */
+header{text-align:center;padding:100px 20px;position:relative;overflow:hidden;}
+header h1{font-size:3.5rem;color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff,0 0 30px #ff0;}
+header img{width:120px;margin-bottom:20px;animation:logoSpin 5s linear infinite;}
+@keyframes logoSpin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+header p{color:#0ff;opacity:0.8;margin-top:10px;font-size:1.2rem;}
+nav{margin-top:40px;}
+nav a{color:#0ff;text-decoration:none;margin:0 20px;font-weight:700;transition:0.3s;text-shadow:0 0 5px #0ff;}
+nav a:hover{color:#ff0;text-shadow:0 0 10px #ff0,0 0 20px #ff0;}
+
+/* Floating icons */
+.floating-icon{
+  position:absolute;font-size:24px;color:#ff0;animation:floatMove linear infinite;
+}
+@keyframes floatMove{
+  0%{transform:translateY(0) translateX(0);}
+  25%{transform:translateY(-20px) translateX(15px);}
+  50%{transform:translateY(20px) translateX(-15px);}
+  75%{transform:translateY(-15px) translateX(10px);}
+  100%{transform:translateY(0) translateX(0);}
+}
+
+/* Sections */
+section{padding:80px 20px;max-width:1200px;margin:0 auto;text-align:center;}
+.info-cards{display:flex;flex-wrap:wrap;gap:40px;justify-content:center;align-items:center;}
+.info-card{flex:1 1 300px;background:#111;padding:30px;border-radius:15px;box-shadow:0 8px 20px rgba(0,255,255,0.3);transition:0.3s;}
+.info-card:hover{transform:translateY(-10px);box-shadow:0 12px 30px rgba(0,255,255,0.5);}
+.info-card h3{margin-bottom:15px;color:#0ff;}
+.info-card p{opacity:0.8;}
+
+/* Buttons */
+.button{
+  background:#0ff;color:#000;padding:12px 30px;border:none;border-radius:12px;cursor:pointer;font-weight:700;transition:0.3s;text-shadow:0 0 5px #0ff;
+}
+.button:hover{background:#ff0;text-shadow:0 0 10px #ff0;}
+.pulse{
+  animation: pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 10px #0ff, 0 0 20px #0ff;}
+  50%{box-shadow:0 0 20px #ff0, 0 0 40px #ff0;}
+  100%{box-shadow:0 0 10px #0ff, 0 0 20px #0ff;}
+}
+
+/* AI iframe container */
+#ai-container{display:none; margin-top:20px;}
+iframe{width:100%;height:70vh;border:none;border-radius:15px;}
+
+/* Footer */
+footer{background:#111;color:#0ff;text-align:center;padding:20px;margin-top:40px;font-size:0.9rem;}
+footer a{color:#ff0;text-decoration:none;}
+
+/* Responsive */
+@media(max-width:768px){.info-cards{flex-direction:column;}}
+</style>
 </head>
 <body>
 
-  <!-- Header / Home Section -->
-  <header>
-    <h1>Fusion AI</h1>
-    <p>Your Personal AI Assistant – Ask Anything, Generate Anything!</p>
-    <nav>
-      <a href="#about">About AI</a>
-      <a href="#ai">Try AI</a>
-      <a href="#ads">Support</a>
-    </nav>
-  </header>
+<!-- Header -->
+<header>
+  <img src="https://i.ibb.co/yQ3m6Q1/fusionai-logo.png" alt="Fusion AI Logo">
+  <h1>Fusion AI</h1>
+  <p>Your Neon AI Assistant</p>
+  <nav>
+    <a href="#about">About AI</a>
+    <a href="#ai-container">Try AI</a>
+    <a href="#auth">Sign In / Sign Up</a>
+  </nav>
 
-  <!-- About Section -->
-  <section id="about">
-    <h2 style="text-align:center; margin-bottom:40px;">About Fusion AI</h2>
-    <div class="info">
-      <div>
-        <h3>Intelligent & Fast</h3>
-        <p>Fusion AI can answer questions, solve problems, and generate content instantly, just like ChatGPT.</p>
-      </div>
-      <div>
-        <h3>Image & Code Generation</h3>
-        <p>Generate high-quality images, code snippets, or text-based content effortlessly.</p>
-      </div>
-      <div>
-        <h3>Always Accessible</h3>
-        <p>Access Fusion AI directly from your browser – no login or signup required.</p>
-      </div>
+  <!-- Floating Icons -->
+  <div class="floating-icon" style="top:10%; left:15%;">🤖</div>
+  <div class="floating-icon" style="top:50%; left:80%;">💡</div>
+  <div class="floating-icon" style="top:70%; left:40%;">🛸</div>
+</header>
+
+<!-- About Section -->
+<section id="about">
+  <h2 style="color:#0ff;">About Fusion AI</h2>
+  <div class="info-cards">
+    <div class="info-card">
+      <h3>Intelligent & Fast</h3>
+      <p>Fusion AI can answer questions, solve problems, and generate content instantly.</p>
     </div>
-  </section>
+    <div class="info-card">
+      <h3>Image & Code Generation</h3>
+      <p>Generate high-quality images, code snippets, or text effortlessly.</p>
+    </div>
+    <div class="info-card">
+      <h3>Exclusive Access</h3>
+      <p>Only registered users can access Fusion AI directly in your browser.</p>
+    </div>
+  </div>
+</section>
 
-  <!-- Ads Section -->
-  <section id="ads" class="ad-container">
-    <!-- Google AdSense Placeholder -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-XXXXXXXXXX"
-         data-ad-slot="XXXXXXXXXX"
-         data-ad-format="auto"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </section>
+<!-- Sign-In Section -->
+<section id="auth">
+  <h2 style="color:#0ff;">Sign In / Sign Up</h2>
+  <button class="button pulse" id="google-signin">Sign In with Google</button>
+</section>
 
-  <!-- AI Section -->
-  <section id="ai">
-    <h2 style="text-align:center; margin-bottom:30px;">Try Fusion AI Now</h2>
-    <iframe src="https://fusionai-10018355.chipp.ai/"></iframe>
-  </section>
+<!-- AI Section -->
+<section id="ai-container">
+  <h2 style="color:#0ff;">Try Fusion AI</h2>
+  <button class="button pulse" onclick="document.getElementById('ai-frame').scrollIntoView({behavior:'smooth'});">Try AI Now</button>
+  <div id="ai-frame">
+    <iframe src="YOUR_CUSTOM_AI_URL_HERE"></iframe>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 Fusion AI. All Rights Reserved. <br>
-    Powered by <a href="https://chipp.ai" style="color:#ffcc00;">Chipp AI</a>
-  </footer>
+<!-- Footer -->
+<footer>
+  &copy; 2025 Fusion AI. All rights reserved.
+</footer>
+
+<!-- Firebase Scripts -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyArZzZPIzC8yQ6NTq9c9ZR3PGpIH5v9ZP0",
+    authDomain: "fusionai-dea4d.firebaseapp.com",
+    projectId: "fusionai-dea4d",
+    storageBucket: "fusionai-dea4d.appspot.com",
+    messagingSenderId: "118213693966",
+    appId: "1:118213693966:web:584a5d6b59b51808ffa25f",
+    measurementId: "G-VNHSHQM183"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const provider = new firebase.auth.GoogleAuthProvider();
+
+  const googleSignInBtn = document.getElementById('google-signin');
+  const aiContainer = document.getElementById('ai-container');
+
+  // Hide AI section until login
+  aiContainer.style.display = 'none';
+
+  // Sign-in with Google
+  googleSignInBtn.addEventListener('click', () => {
+    auth.signInWithPopup(provider)
+      .then(result => {
+        alert("Signed in as " + result.user.displayName);
+        aiContainer.style.display = 'block'; // show AI
+        googleSignInBtn.style.display = 'none'; // hide sign-in button
+      })
+      .catch(err => console.error(err));
+  });
+
+  // Check auth state
+  auth.onAuthStateChanged(user => {
+    if(user){
+      aiContainer.style.display = 'block';
+      googleSignInBtn.style.display = 'none';
+    }
+  });
+</script>
 
 </body>
 </html>
